@@ -25,7 +25,7 @@ Sheet sẽ tự sinh 3 trang tính: `Rooms` (phòng), `Players` (người đã v
 2. Chiếu màn hình này lên. Người chơi mở trò chơi, nhập tên và **mã phòng**, rồi bấm Bắt đầu.
    Nếu trò chơi được đưa lên web (GitHub Pages, Netlify…), trang MC hiện thêm mã QR và đường dẫn có sẵn mã phòng.
 3. Bảng của MC tự cập nhật mỗi 4 giây:
-   - **Hoàn thành nhanh nhất**: người ghép đủ 15 cặp, xếp theo thời gian (chính xác đến 0,1 giây).
+   - **Hoàn thành nhanh nhất**: người ghép đủ 8 cặp, xếp theo thời gian (chính xác đến 0,1 giây).
    - **Chưa ghép đủ**: người hết giờ, xếp theo số cặp rồi số câu đúng.
    - **Đang chơi**: ai đã vào phòng mà chưa xong.
 4. Hết phiên, bấm **Đóng phòng**: từ lúc đó không ai vào hoặc nộp thêm kết quả được. Bấm **Mở lại** nếu cần.

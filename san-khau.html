@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trúc Xanh · Sân khấu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="stage">
+<div id="app">
+
+<!-- Phút 1: chia đội, giới thiệu luật -->
+<section id="g-setup" class="end">
+  <h1>Trúc Xanh · Sân khấu</h1>
+  <p class="sub">Chơi theo đội trên màn hình chiếu. MC điều khiển, các đội giơ tay giành quyền trả lời.</p>
+  <div class="intro">
+    <div class="box">
+      <h2>Luật chơi (3 phút)</h2>
+      <ol class="rules">
+        <li><b class="n">1</b><span>Sau <b>8 thẻ</b> đánh số là một <b>ô chữ bí mật</b> về đại đoàn kết dân tộc.</span></li>
+        <li><b class="n">2</b><span>MC đọc câu hỏi. Đội <b>giơ tay trước</b> được trả lời. Sai thì đội khác giành quyền.</span></li>
+        <li><b class="n">3</b><span>Trả lời đúng: đội gọi <b>2 số</b> để lật. Hai thẻ cùng dân tộc thì được <b>+10</b> và mở ra một phần ô chữ.</span></li>
+        <li><b class="n">4</b><span>Đoán đúng ô chữ bất cứ lúc nào: <b>+30</b> và kết thúc. Đoán sai thì đội mất quyền đoán.</span></li>
+        <li><b class="n">5</b><span>Hết 3 phút, đội nhiều điểm nhất thắng.</span></li>
+      </ol>
+    </div>
+    <div class="box">
+      <h2>Các đội</h2>
+      <div id="g-teams" class="st-teams-in"></div>
+      <div class="st-row">
+        <button class="btn-sub" id="g-add" type="button">+ Thêm đội</button>
+        <button class="btn-sub" id="g-del" type="button">− Bớt đội</button>
+      </div>
+      <label class="field">Ô chữ bí mật
+        <input id="g-phrase" type="text" maxlength="60" autocomplete="off">
+      </label>
+      <button class="btn-main" id="g-start" type="button">Bắt đầu</button>
+    </div>
+  </div>
+</section>
+
+<!-- Phút 2–4: chơi -->
+<section id="g-play" hidden>
+  <div class="st-grid">
+    <div class="st-boardwrap">
+      <div class="st-secret" id="g-secret"><span id="g-secret-txt"></span></div>
+      <div class="st-board" id="g-board"></div>
+    </div>
+    <div class="st-side">
+      <div class="st-top">
+        <div class="pill" id="g-time-p"><span>Thời gian</span><b id="g-time">03:00</b></div>
+        <div class="pill"><span>Cặp đã mở</span><b id="g-pairs">0/4</b></div>
+        <button class="btn-sub st-pause" id="g-pause" type="button">Tạm dừng</button>
+      </div>
+      <ol class="st-score" id="g-score"></ol>
+      <div class="panel st-panel">
+        <p class="st-msg" id="g-msg"></p>
+        <div id="g-q" hidden>
+          <div class="qmeta"><b id="g-qn"></b><span class="sec" id="g-qsec">15</span></div>
+          <div class="bar" id="g-qbar"><i id="g-qfill"></i></div>
+          <p class="qtext" id="g-qtext"></p>
+          <div class="opts" id="g-opts"></div>
+        </div>
+        <div class="st-actions">
+          <button class="btn-main" id="g-next" type="button">Câu hỏi</button>
+          <button class="btn-sub" id="g-guess" type="button">Đoán ô chữ</button>
+        </div>
+        <div class="st-guess" id="g-guessbox" hidden>
+          <p>Đội nào đoán? Chọn đội ở bảng điểm, rồi bấm:</p>
+          <div class="st-row">
+            <button class="btn-sub st-ok" id="g-right" type="button" disabled>Đúng</button>
+            <button class="btn-sub st-bad" id="g-wrong" type="button" disabled>Sai</button>
+            <button class="btn-sub" id="g-cancel" type="button">Huỷ</button>
+          </div>
+        </div>
+      </div>
+      <p class="st-hint">Chọn tên đội trên bảng điểm khi đội đó giơ tay. Phím tắt: A–D chọn đáp án, Space để mở câu hỏi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Phút 5: công bố, rút ra ý chính -->
+<section id="g-end" class="end" hidden>
+  <p class="sub" id="g-end-why"></p>
+  <h1 id="g-win"></h1>
+  <div class="st-phrase" id="g-end-phrase"></div>
+  <div class="box st-key">
+    <h2>Ý chính</h2>
+    <p>Theo Hồ Chí Minh, <b>đại đoàn kết toàn dân tộc là chiến lược lâu dài, nhất quán</b>, quyết định thành công của cách mạng Việt Nam.</p>
+    <p>Như các thẻ chỉ mở được khi ghép đúng đôi, sức mạnh dân tộc chỉ trọn vẹn khi <b>54 dân tộc anh em</b> cùng đứng chung một khối.</p>
+  </div>
+  <ol class="st-score st-final" id="g-final"></ol>
+  <h2>Các dân tộc trong ván</h2>
+  <div class="kn-list" id="g-kn"></div>
+  <button class="btn-main" id="g-again" type="button">Ván mới</button>
+</section>
+
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<aside class="kn" id="kn" hidden aria-live="polite"><img id="kn-img" alt=""><div><small>Thẻ kiến thức</small><h3 id="kn-name"></h3><p id="kn-txt"></p></div></aside>
+
+<script src="js/data.js"></script>
+<script src="js/questions.js"></script>
+<script src="js/stage.js"></script>
+</body>
+</html>

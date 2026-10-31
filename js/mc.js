@@ -1,5 +1,5 @@
 // Trang MC: tạo phòng có mã, theo dõi trực tiếp ai hoàn thành nhanh nhất trong phòng.
-const PAIRS=15, TOTAL=600, POLL=4000;
+const PAIRS=8, TOTAL=180, POLL=4000;
 const $=s=>document.querySelector(s);
 const ROOMS_KEY='truc_xanh_mc_rooms';
 let CUR=null, pollT=null, busy=false;

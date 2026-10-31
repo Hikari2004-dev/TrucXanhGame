@@ -79,7 +79,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* ---------- game layout ---------- */
 .play{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:18px;align-items:start}
 .tabs{display:none}
-.board{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;width:min(100%,calc((100dvh - 210px)*1.2));min-width:min(100%,520px);margin-inline:auto}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:min(100%,calc(100dvh - 210px));min-width:min(100%,520px);margin-inline:auto}
 .card{position:relative;aspect-ratio:1;padding:0;border:0;background:none;perspective:700px;border-radius:10px}
 .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.3,.7,.3,1)}
 .card.flip .in{transform:rotateY(180deg)}
@@ -203,7 +203,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   @keyframes pulse{50%{box-shadow:0 0 0 4px rgba(240,176,28,.9)}}
   #s-game[data-tab="q"] .board-wrap{display:none}
   #s-game[data-tab="cards"] .panel{display:none}
-  .board{grid-template-columns:repeat(5,1fr);width:100%;min-width:0;gap:6px}
+  .board{grid-template-columns:repeat(4,1fr);width:100%;min-width:0;gap:6px}
   .pill{min-width:0;padding:5px 10px 4px}
   .pill b{font-size:23px}
   .brand{font-size:22px}
@@ -246,3 +246,56 @@ button{font:inherit;color:inherit;cursor:pointer}
 .lb-list:empty{display:none}
 .lb-list:not(:empty)+.lb-empty{display:none}
 @media (max-width:760px){.mc-head{grid-template-columns:1fr}}
+
+/* ---------- chế độ sân khấu (san-khau.html) ---------- */
+body.stage #app{max-width:1680px}
+.st-row{display:flex;gap:10px;flex-wrap:wrap}
+.st-row .btn-sub{flex:1;width:auto}
+.st-teams-in{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.st-team-in{color:var(--tc)}
+.st-team-in input{border-color:var(--tc)}
+.st-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(380px,520px);gap:22px;align-items:start}
+.st-boardwrap{position:relative;align-self:center;width:min(100%,calc((100dvh - 44px)*2));margin-inline:auto;aspect-ratio:2/1}
+.st-secret{position:absolute;inset:0;display:grid;place-items:center;padding:6%;border-radius:14px;background:radial-gradient(circle at 50% 50%,#d32f2f,#8f0d0d);text-align:center}
+.st-secret span{font:700 clamp(30px,6.4vw,92px)/1.08 var(--display);letter-spacing:.04em;color:#ffe08a;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.st-board{position:relative;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:4px;height:100%}
+.st-board .card{aspect-ratio:auto;transition:opacity .7s,transform .7s}
+.st-board .card.gone{opacity:0;transform:scale(.85);pointer-events:none}
+.st-num{position:absolute;inset:0;display:grid;place-items:center;font:700 clamp(30px,4.4vw,64px)/1 var(--display);color:#fff8e2;text-shadow:0 2px 0 #0b2a17,0 0 14px rgba(0,0,0,.55)}
+.st-name{position:absolute;left:0;right:0;bottom:0;padding:4px 6px;background:rgba(26,74,42,.88);color:#fff;font:600 clamp(12px,1.3vw,18px)/1.2 var(--display);letter-spacing:.04em;text-align:center}
+.st-side{display:grid;gap:12px}
+.st-top{display:flex;gap:10px;align-items:stretch}
+.st-top .pill{flex:1}
+.st-top .pill b{font-size:36px}
+.st-pause{width:auto;margin:0;padding:8px 14px;font-size:15px}
+.st-panel{padding:16px 18px}
+.st-panel .qtext{font-size:clamp(17px,1.4vw,22px)}
+.st-panel .opt .t{font-size:clamp(15px,1.15vw,18px)}
+.st-msg{margin:0 0 12px;font-size:17px;min-height:26px}
+.st-actions{display:flex;gap:10px;margin-top:12px}
+.st-actions .btn-main{margin:0;flex:2}
+.st-actions .btn-sub{margin:0;flex:1}
+.st-guess p{margin:0 0 8px;font-weight:600}
+.st-ok{border-color:var(--green);color:var(--green)}
+.st-bad{border-color:var(--red-hot);color:var(--red-hot)}
+.st-score{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.st-team{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:10px 14px;border:3px solid var(--tc);border-left-width:12px;border-radius:12px;background:var(--card);text-align:left}
+.st-team .st-tn{font:600 19px/1.15 var(--display);letter-spacing:.03em;color:var(--tc);overflow-wrap:anywhere}
+.st-team small{display:block;font:500 12px var(--body);color:var(--ink-soft)}
+.st-team b{font:700 34px/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+button.st-team:disabled{cursor:default}
+.st-score button.st-team:disabled{opacity:.75}
+.st-score button.st-team:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 4px 0 var(--tc)}
+.st-team.on{background:var(--tc);opacity:1!important}
+.st-team.on .st-tn,.st-team.on b,.st-team.on small{color:#fff}
+.st-hint{margin:0;font-size:12.5px;color:var(--ink-soft)}
+#g-play.paused .st-boardwrap,#g-play.paused .st-panel{filter:grayscale(.8) opacity(.5)}
+.st-phrase{display:inline-block;margin:6px 0 16px;padding:14px 26px;border-radius:14px;background:var(--red);color:#ffe08a;font:700 clamp(28px,5vw,60px)/1.1 var(--display);letter-spacing:.04em}
+.st-key{margin-bottom:16px}
+.st-key p{margin:0 0 8px;font-size:clamp(16px,1.4vw,20px)}
+.st-final{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+#g-end{text-align:center}
+#g-end .st-key,#g-end .kn-list,#g-end .st-final{text-align:left}
+@media (max-width:1100px){.st-grid{grid-template-columns:1fr}.st-boardwrap{width:min(100%,900px)}}
+.st-score.nudge{animation:nudge .7s}
+@keyframes nudge{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}

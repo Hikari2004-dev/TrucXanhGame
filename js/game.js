@@ -1,4 +1,4 @@
-const TOTAL=600, QTIME=15, PAIRS=15, REWARD=3, STREAK_N=3, BONUS=2;
+const TOTAL=180, QTIME=15, PAIRS=8, REWARD=3, STREAK_N=3, BONUS=2;
 const $=s=>document.querySelector(s);
 const SLUGS=Object.keys(IMG);
 let S=null, tick=null, toastT=null;
@@ -184,7 +184,7 @@ const LB={
     const box=$('#'+this.shown), list=this.top(this.tab), me=this.name.trim().toLowerCase();
     let h='<div class="lb-tabs" role="tablist"><button class="lb-tab" role="tab" data-tab="fast" aria-selected="'+(this.tab==='fast')+'" type="button">Hoàn thành nhanh nhất</button><button class="lb-tab" role="tab" data-tab="correct" aria-selected="'+(this.tab==='correct')+'" type="button">Nhiều câu đúng nhất</button></div>';
     if(!list.length){
-      h+='<p class="lb-empty">'+(this.tab==='fast'?'Chưa có ai ghép đủ 15 cặp. Bạn có thể là người đầu tiên!':'Chưa có kết quả nào.')+'</p>';
+      h+='<p class="lb-empty">'+(this.tab==='fast'?'Chưa có ai ghép đủ '+PAIRS+' cặp. Bạn có thể là người đầu tiên!':'Chưa có kết quả nào.')+'</p>';
     } else {
       h+='<ol class="lb-list">'+list.map((r,i)=>{
         const mine=r.n.trim().toLowerCase()===me?' me':'';
@@ -367,10 +367,10 @@ function endGame(){
   const used=Math.min(TOTAL,TOTAL-Math.max(0,Math.ceil((S.endAt-Date.now())/1000)));
   const usedMs=Math.min(TOTAL*1000,Date.now()-S.startAt);
   const p=S.pairs;
-  const t=p===PAIRS?'Hoàn thành xuất sắc!':p>=8?'Rất tốt!':p>=4?'Khá lắm!':'Cố gắng thêm nhé!';
+  const t=p===PAIRS?'Hoàn thành xuất sắc!':p>=PAIRS/2?'Rất tốt!':p>=PAIRS/4?'Khá lắm!':'Cố gắng thêm nhé!';
   $('#e-ticket-b').innerHTML=[['Họ tên',esc(S.name)]].concat(S.room?[['Phòng',esc(S.room)]]:[],[['Cặp ghép được',p+'/'+PAIRS],['Câu trả lời đúng',S.correct+'/'+S.answered],['Sao kiếm được',S.earned+' ★'],['Thời gian chơi',fmtMs(usedMs)],['Hoàn thành lúc',new Date().toLocaleString('vi-VN')],['Mã xác nhận',S.id.slice(-6).toUpperCase()]]).map(x=>'<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('');
   $('#e-title').textContent=t;
-  $('#e-sub').textContent=p===PAIRS?'Bạn đã ghép đủ 15 cặp. Đại đoàn kết là sức mạnh của cả dân tộc.':'Đại đoàn kết toàn dân tộc là chiến lược lâu dài, nhất quán của cách mạng Việt Nam.';
+  $('#e-sub').textContent=p===PAIRS?'Bạn đã ghép đủ '+PAIRS+' cặp. Đại đoàn kết là sức mạnh của cả dân tộc.':'Đại đoàn kết toàn dân tộc là chiến lược lâu dài, nhất quán của cách mạng Việt Nam.';
   const st=[['Cặp tìm được',p+'/'+PAIRS],['Câu trả lời đúng',S.correct+'/'+S.answered],['Sao kiếm được',S.earned+' ★'+(S.bonus?' (thưởng '+S.bonus+')':'')],['Lượt lật thẻ',S.flips],['Thời gian chơi',fmt(used)]];
   $('#e-stats').innerHTML=st.map(x=>'<div class="stat"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('');
   const found=new Set(S.cards.filter(c=>c.m).map(c=>c.slug));
