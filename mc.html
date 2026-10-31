@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trúc Xanh · MC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+<section id="m-setup" class="end">
+  <h1>Bảng điều khiển MC</h1>
+  <p class="sub">Tạo phòng, đưa mã cho người chơi, rồi theo dõi ai giải nhanh nhất.</p>
+  <p class="mc-warn" id="m-nourl" hidden>Chưa có địa chỉ máy chủ. Hãy làm theo <b>apps-script/HUONG-DAN.md</b> rồi dán địa chỉ vào <b>js/config.js</b>.</p>
+  <div class="box">
+    <h2>Phòng mới</h2>
+    <label class="field">Tên phiên (không bắt buộc)
+      <input id="m-title" type="text" maxlength="60" autocomplete="off" placeholder="Ví dụ: Lớp SE1801 · Buổi 5">
+    </label>
+    <p class="err-msg" id="m-err" hidden></p>
+    <button class="btn-main" id="m-create" type="button">Tạo phòng</button>
+  </div>
+  <div class="box mc-old" id="m-old-box" hidden>
+    <h2>Phòng đã tạo trên máy này</h2>
+    <div id="m-old"></div>
+  </div>
+</section>
+
+<section id="m-room" hidden>
+  <div class="top-link"><button type="button" id="m-back">&larr; Danh sách phòng</button></div>
+  <div class="mc-head">
+    <div class="mc-code box">
+      <span>Mã phòng</span>
+      <b id="m-code"></b>
+      <small id="m-title-show"></small>
+      <div id="m-qr" class="mc-qr" hidden></div>
+      <a id="m-link" class="mc-link" target="_blank" rel="noopener" hidden></a>
+    </div>
+    <div class="mc-side">
+      <div class="stats mc-stats">
+        <div class="stat"><span>Đã vào phòng</span><b id="m-n-join">0</b></div>
+        <div class="stat"><span>Đang chơi</span><b id="m-n-play">0</b></div>
+        <div class="stat"><span>Đã hoàn thành</span><b id="m-n-done">0</b></div>
+      </div>
+      <div class="mc-win" id="m-win" hidden></div>
+      <div class="mc-ctl">
+        <span class="mc-state" id="m-state"></span>
+        <button class="btn-sub" id="m-toggle" type="button"></button>
+      </div>
+      <p class="mc-note" id="m-status"></p>
+    </div>
+  </div>
+
+  <h2 class="mc-h">Hoàn thành nhanh nhất</h2>
+  <div class="lb"><ol class="lb-list" id="m-fast"></ol><p class="lb-empty" id="m-fast-empty">Chưa có ai ghép đủ 15 cặp.</p></div>
+
+  <h2 class="mc-h">Chưa ghép đủ</h2>
+  <div class="lb"><ol class="lb-list" id="m-rest"></ol><p class="lb-empty" id="m-rest-empty">Chưa có.</p></div>
+
+  <h2 class="mc-h">Đang chơi</h2>
+  <div class="mc-chips" id="m-playing"></div>
+</section>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/mc.js"></script>
+</body>
+</html>

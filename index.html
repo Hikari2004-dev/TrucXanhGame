@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trúc Xanh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+<section id="s-start">
+  <img class="cover" src="images/cover.jpg" alt="Trò chơi Trúc Xanh: trả lời trắc nghiệm, lật cặp mảnh ghép">
+  <div class="intro">
+    <div class="box">
+      <h2>Cách chơi</h2>
+      <ol class="rules">
+        <li><b class="n">1</b><span>Mỗi ván có <b>30 thẻ</b>, gồm 15 dân tộc, mỗi dân tộc 2 thẻ giống nhau. Tối đa <b>10 phút</b>.</span></li>
+        <li><b class="n">2</b><span>Trả lời trắc nghiệm về <b>đại đoàn kết dân tộc</b> (chương 5, Tư tưởng Hồ Chí Minh). Mỗi câu có <b>15 giây</b>. Đúng được <b>+3 ★</b>, sai hoặc hết giờ thì không có sao.</span></li>
+        <li><b class="n">3</b><span>Lật một thẻ tốn <b>1 ★</b> và <b>tạm dừng câu hỏi</b> cho đến khi bạn hết sao. Tìm đủ 15 cặp giống nhau để hoàn thành ván chơi.</span></li>
+        <li><b class="n">4</b><span>Đúng <b>3 câu liên tiếp</b> được thưởng thêm <b>+2 ★</b>. Mỗi cặp ghép đúng mở một <b>thẻ kiến thức</b> về dân tộc đó.</span></li>
+        <li><b class="n">5</b><span>Thỉnh thoảng có <b>sự kiện bất ngờ</b> mang màu sắc Việt Nam (mưa xuân, hội làng, sương mù, gió Lào, rét Nàng Bân...) làm ván chơi dễ hoặc khó hơn trong ít giây. Luôn có thông báo trước.</span></li>
+      </ol>
+    </div>
+    <div class="box ways">
+      <h2>Chọn cách chơi</h2>
+      <div class="way"><b>Cách 1.</b> Trả lời xong, dùng sao lật thẻ ngay.</div>
+      <div class="way"><b>Cách 2.</b> Gom sao qua nhiều câu, rồi mở thẻ một lượt.</div>
+      <small>Đây chỉ là gợi ý. Bạn chơi theo cách nào cũng được.</small>
+      <label class="field" id="f-name">Họ tên (kèm MSSV nếu có)
+        <input id="in-name" type="text" maxlength="40" autocomplete="name" placeholder="Ví dụ: Nguyễn Văn An - SE1234">
+      </label>
+      <p class="err-msg" id="name-err" hidden>Hãy nhập tên để hiện trên bảng xếp hạng.</p>
+      <label class="field" id="f-room">Mã phòng (MC cung cấp)
+        <input id="in-room" type="text" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ví dụ: KHTQB">
+      </label>
+      <p class="err-msg" id="room-err" hidden></p>
+      <button class="btn-main" id="btn-start" type="button">Vào phòng</button>
+    </div>
+  </div>
+</section>
+
+<section id="s-game" data-tab="q" hidden>
+  <div class="hud">
+    <div class="brand">Trúc Xanh<small id="hud-sub">Đại đoàn kết dân tộc</small></div>
+    <div class="hud-r">
+    <button class="snd" id="btn-snd" type="button" aria-pressed="true" aria-label="Bật/tắt âm thanh"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="wave" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/><path class="mute" d="M17 9l5 6M22 9l-5 6"/></svg></button>
+    <div class="pills">
+      <div class="pill" id="p-time"><span>Thời gian</span><b id="v-time">10:00</b></div>
+      <div class="pill stars" id="p-stars"><span>Sao</span><b id="v-stars">0 ★</b></div>
+      <div class="pill" id="p-pairs"><span>Cặp đã ghép</span><b id="v-pairs">0/15</b></div>
+    </div>
+    </div>
+  </div>
+  <div id="evt" class="evt" hidden aria-live="polite"></div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-q" aria-selected="true" type="button">Trả lời <span id="tab-sec"></span></button>
+    <button class="tab" role="tab" id="tab-c" aria-selected="false" type="button">Lật thẻ</button>
+  </div>
+  <div class="play">
+    <div class="board-wrap"><div class="board" id="board"></div></div>
+    <div class="panel" aria-live="polite">
+      <div class="pause" id="q-pause" hidden><b>Đang lật thẻ</b><p>Câu hỏi tạm dừng và không bị tính giờ. Khi hết sao, câu hỏi sẽ tiếp tục. Muốn kiếm thêm sao thì bấm nút dưới.</p><button class="btn-main" id="btn-resume" type="button">Trả lời tiếp</button></div>
+      <div class="qmeta"><b id="q-n">Câu 1</b><span class="sec" id="q-sec">15</span></div>
+      <div class="bar" id="q-bar"><i id="q-fill"></i></div>
+      <p class="qtext" id="q-text"></p>
+      <div class="opts" id="q-opts"></div>
+      <p class="fb" id="q-fb"></p>
+      <div class="streak" id="q-streak" aria-live="off"></div>
+      <p class="legend">Đúng +3 ★. Đúng 3 câu liên tiếp thưởng thêm +2 ★. Mỗi lần lật thẻ −1 ★ và tạm dừng câu hỏi cho đến khi hết sao. Phím tắt: A, B, C, D hoặc 1, 2, 3, 4.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s-board" class="end" hidden>
+  <div class="top-link"><button type="button" id="btn-back">&larr; Quay lại</button></div>
+  <h1>Bảng xếp hạng</h1>
+  <p class="sub" id="b-sub"></p>
+  <div class="lb" id="lb-board"></div>
+</section>
+
+<section id="s-end" class="end" hidden>
+  <div class="ticket" id="e-ticket"><div class="ticket-h">Phiếu kết quả · Trúc Xanh</div><div class="ticket-b" id="e-ticket-b"></div><div class="ticket-note">Chụp màn hình phiếu này gửi vào nhóm lớp nếu giảng viên cần chấm điểm.</div></div>
+  <h1 id="e-title"></h1>
+  <p class="sub" id="e-sub"></p>
+  <div class="stats" id="e-stats"></div>
+  <h2>Bảng xếp hạng</h2>
+  <div class="lb" id="lb-end"></div>
+  <h2>Thẻ kiến thức: các dân tộc trong ván này</h2>
+  <div class="kn-list" id="e-thumbs"></div>
+  <h2 id="e-rv-h">Câu cần ôn lại</h2>
+  <div class="review" id="e-review"></div>
+  <button class="btn-main" id="btn-again" type="button">Chơi lại</button>
+</section>
+
+<footer class="credit">Ảnh từ Dự án 54 Việt Tộc. Artist: Nemoo. <a href="https://www.behance.net/gallery/198610855/54-VIT-TC" target="_blank" rel="noopener noreferrer">Xem dự án gốc trên Behance</a></footer>
+</div>
+<div id="toast" role="status"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<aside class="kn" id="kn" hidden aria-live="polite"><img id="kn-img" alt=""><div><small>Thẻ kiến thức</small><h3 id="kn-name"></h3><p id="kn-txt"></p></div><button class="x" id="kn-x" type="button" aria-label="Đóng">&times;</button></aside>
+
+
+<!-- Địa chỉ máy chủ bảng xếp hạng -->
+<script src="js/config.js"></script>
+<!-- Dữ liệu: ảnh, tên dân tộc, thẻ kiến thức -->
+<script src="js/data.js"></script>
+<!-- Bộ câu hỏi trắc nghiệm -->
+<script src="js/questions.js"></script>
+<!-- Logic trò chơi -->
+<script src="js/game.js"></script>
+</body>
+</html>
