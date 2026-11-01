@@ -27,7 +27,7 @@
     try { await loadScript('socket.io/socket.io.js'); } catch (_) { /* demo */ }
     DEMO = typeof window.io !== 'function';
     if (DEMO) {
-      await loadScript('../config/game.config.js');
+      await loadScript('config/game.config.js');
       await loadScript('js/demo.js');
       socket = DemoServer.connect('player');
     } else {

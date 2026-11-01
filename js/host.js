@@ -22,7 +22,7 @@
     try { await loadScript('socket.io/socket.io.js'); } catch (_) { /* không có server -> demo */ }
     DEMO = typeof window.io !== 'function';
     if (DEMO) {
-      await loadScript('../config/game.config.js');
+      await loadScript('config/game.config.js');
       await loadScript('js/demo.js');
       socket = DemoServer.connect('host');
       document.body.classList.add('is-demo');
