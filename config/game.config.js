@@ -35,70 +35,70 @@
         answer: 'BẢN SẮC',
         accept: ['ban sac dan toc', 'ban sac van hoa'],
         image: 'img/q1.svg',
-        alt: 'Dải màu rực rỡ uốn hình chữ S và một dấu vân tay nhiều màu',
+        alt: 'Dấu vân tay nhiều màu, dải màu hình chữ S, một nếp nhà sàn bản làng và một bảng pha màu',
         explanation: 'Mỗi dân tộc có ngôn ngữ, trang phục, phong tục riêng. Bản sắc văn hóa là nền tảng của sự thống nhất trong đa dạng.'
       },
       {
         answer: 'BÌNH ĐẲNG',
         accept: ['binh dang dan toc'],
         image: 'img/q2.svg',
-        alt: 'Hai người đứng trên hai đĩa của một cán cân thăng bằng',
+        alt: 'Hai người đứng trên hai đĩa cân thăng bằng, dấu bằng to phía trên, hai chiếc bình giống hệt hai bên',
         explanation: 'Các dân tộc hoàn toàn bình đẳng về quyền và nghĩa vụ, không phân biệt lớn hay nhỏ, trình độ phát triển cao hay thấp.'
       },
       {
         answer: 'ĐỘC LẬP',
         accept: ['doc lap dan toc'],
         image: 'img/q3.svg',
-        alt: 'Một người cầm cờ đứng vững trên bệ riêng, tách khỏi nhóm người phía sau',
+        alt: 'Một người cầm cờ đứng vững trên bệ riêng, tách khỏi nhóm người phía sau, dưới chân là sợi xích bị bẻ gãy',
         explanation: 'Độc lập dân tộc là quyền thiêng liêng, là tiền đề để mỗi dân tộc tự làm chủ vận mệnh của mình.'
       },
       {
         answer: 'TỰ QUYẾT',
         accept: ['quyen tu quyet', 'dan toc tu quyet'],
         image: 'img/q4.svg',
-        alt: 'Một người đứng ở ngã ba, chỉ tay chọn một con đường',
+        alt: 'Một người đứng ở ngã ba, chỉ tay chọn một con đường, nghĩ tới lá phiếu tự tay bỏ vào hòm',
         explanation: 'Quyền dân tộc tự quyết: quyền tự quyết định chế độ chính trị và con đường phát triển của dân tộc mình.'
       },
       {
         answer: 'ĐOÀN KẾT',
         accept: ['doan ket dan toc', 'dai doan ket'],
         image: 'img/q5.svg',
-        alt: 'Nhiều người nắm tay nhau thành một vòng tròn quanh ngôi sao',
+        alt: 'Nhiều người nắm tay nhau thành một vòng tròn quanh ngôi sao, bên cạnh là một bó đũa buộc chặt',
         explanation: 'Liên hiệp công nhân tất cả các dân tộc – ở Việt Nam là khối đại đoàn kết toàn dân tộc, nguồn sức mạnh của cách mạng.'
       },
       {
         answer: 'ĐA DẠNG',
         accept: ['da dang van hoa', 'thong nhat trong da dang'],
         image: 'img/q6.svg',
-        alt: 'Nhiều loài hoa khác màu, khác dáng cùng mọc trên một luống đất',
+        alt: 'Nhiều loài hoa khác màu, khác dáng cùng mọc trên một luống đất, những con bướm khác màu bay phía trên',
         explanation: '54 dân tộc Việt Nam có văn hóa đa dạng, phong phú, nhưng thống nhất trong một nền văn hóa Việt Nam chung.'
       },
       {
         answer: 'NGÔN NGỮ',
         accept: ['tieng noi', 'ngon ngu dan toc'],
         image: 'img/q7.svg',
-        alt: 'Hai người nói với nhau bằng hai thứ chữ khác nhau',
+        alt: 'Hai người nói với nhau bằng hai thứ chữ khác nhau, giữa họ là cuốn từ điển mở',
         explanation: 'Nhiều dân tộc có tiếng nói, chữ viết riêng; tiếng Việt là ngôn ngữ chung để các dân tộc giao tiếp với nhau.'
       },
       {
         answer: 'TÔN TRỌNG',
         accept: ['ton trong lan nhau'],
         image: 'img/q8.svg',
-        alt: 'Hai người mặc trang phục khác nhau cúi chào nhau, phía trên có những trái tim',
+        alt: 'Hai người mặc trang phục khác nhau cúi chào nhau, phía trên có huy hiệu ngón tay cái giơ lên',
         explanation: 'Các dân tộc tôn trọng phong tục, tập quán, tín ngưỡng của nhau – điều kiện để đoàn kết bền vững.'
       },
       {
         answer: 'TƯƠNG TRỢ',
         accept: ['giup nhau', 'giup nhau cung phat trien', 'cung phat trien', 'tuong tro lan nhau'],
         image: 'img/q9.svg',
-        alt: 'Người đứng bậc cao đưa tay kéo người ở bậc thấp cùng leo lên phía ngôi sao',
+        alt: 'Người đứng bậc cao đưa tay kéo người ở bậc thấp cùng leo lên phía ngôi sao, góc hình có hai bàn tay nắm lấy nhau',
         explanation: 'Trình độ phát triển giữa các dân tộc còn chênh lệch; chính sách của Đảng, Nhà nước là đoàn kết, tôn trọng, giúp nhau cùng phát triển.'
       },
       {
         answer: 'CHỦ QUYỀN',
         accept: ['chu quyen lanh tho', 'lanh tho', 'bien gioi'],
         image: 'img/q10.svg',
-        alt: 'Bản đồ có lá cờ đỏ sao vàng, đường biên giới chấm đỏ với các cột mốc, sông và núi',
+        alt: 'Bản đồ có lá cờ đỏ sao vàng, đường biên giới chấm đỏ với các cột mốc, sông và núi, lá chắn ngôi sao và các đảo ngoài khơi',
         explanation: 'Đồng bào các dân tộc thiểu số sống nhiều ở vùng biên giới, có vị trí chiến lược trong giữ gìn chủ quyền, an ninh quốc gia.'
       }
     ],
