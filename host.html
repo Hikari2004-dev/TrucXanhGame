@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="vi" class="host">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MC · Đuổi Hình Bắt Chữ – Giải Mã 54 Dân Tộc</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="host">
+<div class="fx" aria-hidden="true">
+  <div class="bg-drum" id="bgDrum"></div>
+  <div class="beam b1"></div><div class="beam b2"></div><div class="beam b3"></div>
+  <div class="led"></div><div class="floor"></div>
+  <div class="bamboo l1"></div><div class="bamboo l2"></div><div class="bamboo r1"></div><div class="bamboo r2"></div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-drum" id="brandDrum"></div>
+    <div><div class="brand-t">ĐUỔI HÌNH BẮT CHỮ</div><div class="brand-s">GIẢI MÃ 54 DÂN TỘC</div></div>
+  </div>
+  <div class="timeline" id="timeline">
+    <div class="tl-track" id="tlTrack"><span class="tl-head" id="tlHead"></span></div>
+    <div class="tl-meta"><span id="tlSeg">Kịch bản 5 phút</span><b id="showClock">0:00 / 5:00</b></div>
+  </div>
+  <div class="room-chip">KẾT NỐI<i class="conn" id="conn"></i></div>
+</header>
+<div class="brocade"></div>
+
+<main class="screens">
+  <section class="screen center on" id="scr-welcome" data-screen-label="MC – Bắt đầu">
+    <div class="hero">
+      <div class="hero-kicker">GAMESHOW MỞ ĐẦU · CHỦ NGHĨA XÃ HỘI KHOA HỌC</div>
+      <h1 class="hero-title gold-text">ĐUỔI HÌNH<br>BẮT CHỮ</h1>
+      <div class="hero-sub">GIẢI MÃ 54 DÂN TỘC</div>
+      <div class="hero-actions" id="pinBox" hidden>
+        <input id="pin" class="field" type="password" autocomplete="off" placeholder="Nhập PIN MC">
+        <button class="btn primary xl" id="btnCreate">VÀO MÀN MC</button>
+      </div>
+      <p class="hint">Space / → : thao tác chính · H: ẩn bảng điều khiển · F: toàn màn hình · M: âm thanh</p>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-lobby" data-screen-label="MC – Phòng chờ">
+    <div class="lobby">
+      <div class="join-card">
+        <div class="jc-label">QUÉT MÃ ĐỂ THAM GIA</div>
+        <div class="qr-box"><img id="qr" alt="Mã QR tham gia"><div class="qr-demo" id="qrDemo" hidden>Chế độ demo offline<br>Mã QR xuất hiện khi chạy server</div></div>
+        <div class="jc-url" id="joinUrl"></div>
+      </div>
+      <div class="lobby-right">
+        <h2 class="lobby-title gold-text">ĐUỔI HÌNH BẮT CHỮ</h2>
+        <div class="lobby-sub">GIẢI MÃ 54 DÂN TỘC</div>
+        <div class="lobby-rules">10 câu đố hình · 42 giây mỗi câu · đúng càng nhanh, điểm càng cao · gõ có dấu hoặc không dấu đều được</div>
+        <div class="lobby-count"><b id="playerCount">0</b><span>người chơi đã tham gia</span><span class="intro-left" id="introLeft"></span></div>
+        <div class="chips" id="chips"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen center" id="scr-countdown" data-screen-label="MC – Đếm ngược">
+    <div class="cd-wrap"><div class="cd-label">CHUẨN BỊ</div><div class="cd-num" id="cdNum">3</div></div>
+  </section>
+
+  <section class="screen" id="scr-question" data-screen-label="MC – Câu đố">
+    <div class="q-grid" id="qScreen">
+      <aside class="q-left">
+        <div class="ring" id="ringWrap">
+          <svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="54"></circle><circle class="ring-fg" id="ring" cx="60" cy="60" r="54"></circle></svg>
+          <div class="ring-num" id="ringNum">35</div><div class="ring-cap">GIÂY</div>
+        </div>
+        <div class="stat"><span>Đã trả lời</span><b id="answered">0/0</b></div>
+        <div class="stat ok"><span>Đoán đúng</span><b id="correctCount">0</b></div>
+        <div class="fastest"><span>NHANH NHẤT</span><b id="fastest">—</b></div>
+      </aside>
+      <div class="q-center">
+        <div class="q-label" id="qLabel">CÂU 1 / 5</div>
+        <div class="frame" id="frame"><img id="qImg" alt=""></div>
+        <div class="pattern" id="pattern"></div>
+        <div class="explain" id="explain"></div>
+      </div>
+      <aside class="panel">
+        <div class="panel-h">BẢNG XẾP HẠNG TRỰC TIẾP</div>
+        <div class="board mini" id="liveBoard"></div>
+        <div class="empty-board" id="liveEmpty">Chưa có điểm</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-final" data-screen-label="MC – Bảng tổng sắp">
+    <div class="final">
+      <h2 class="sec-title gold-text">BẢNG XẾP HẠNG CHUNG CUỘC</h2>
+      <div class="board-head"><span>#</span><span>Người chơi</span><span>Câu đúng</span><span>Tổng điểm</span><span>Thời gian đúng</span></div>
+      <div class="board full" id="finalBoard"></div>
+      <div class="more" id="finalMore"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-top3" data-screen-label="MC – TOP 3">
+    <div class="top3">
+      <h2 class="sec-title gold-text">TOP 3 NHÀ GIẢI MÃ</h2>
+      <div class="podium">
+        <div class="pod p2" id="pod2"><div class="pod-medal">2</div><div class="pod-name">—</div><div class="pod-score"></div><div class="pod-col">BẠC</div></div>
+        <div class="pod p1" id="pod1"><div class="pod-medal">1</div><div class="pod-name">—</div><div class="pod-score"></div><div class="pod-col">VÀNG</div></div>
+        <div class="pod p3" id="pod3"><div class="pod-medal">3</div><div class="pod-name">—</div><div class="pod-score"></div><div class="pod-col">ĐỒNG</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen finale" id="scr-finale" data-screen-label="MC – Thông điệp cuối">
+    <div class="fin-glow"></div>
+    <div class="fin-rays"></div>
+    <div class="fin-photos" id="finPhotos"><div class="col"></div><div class="col"></div></div>
+    <div class="fin-art"><div class="fin-ring" id="finRing"></div><div class="fin-drum" id="finDrum"></div></div>
+    <div class="fin-lines"><div class="fin-l1 gold-text" id="finL1"></div><div class="fin-l2" id="finL2"></div></div>
+    <div class="fin-count" id="finCount"></div>
+    <div class="fin-title">
+      <div class="fin-tdrum" id="finTDrum"></div>
+      <div class="fin-kicker" id="finKicker"></div>
+      <h1 class="gold-text" id="finT"></h1>
+      <div class="brocade"></div>
+    </div>
+    <div class="fin-flash"></div>
+  </section>
+</main>
+
+<footer class="controls" id="controls">
+  <div class="ctl-main" id="ctlMain"></div>
+  <div class="ctl-side">
+    <span class="ctl-note" id="ctlNote"></span>
+    <button class="btn ghost sm" id="btnSound">Âm thanh: Bật</button>
+    <button class="btn ghost sm" id="btnFull">Toàn màn hình</button>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="demo-badge">DEMO OFFLINE · NGƯỜI CHƠI ẢO</div>
+<canvas class="confetti" id="confetti"></canvas>
+
+<script src="js/game-core.js"></script>
+<script src="js/sfx.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/host.js"></script>
+</body>
+</html>
