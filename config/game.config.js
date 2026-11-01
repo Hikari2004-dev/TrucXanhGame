@@ -65,6 +65,41 @@
         image: 'img/q5.svg',
         alt: 'Nhiều người nắm tay nhau thành một vòng tròn quanh ngôi sao',
         explanation: 'Liên hiệp công nhân tất cả các dân tộc – ở Việt Nam là khối đại đoàn kết toàn dân tộc, nguồn sức mạnh của cách mạng.'
+      },
+      {
+        answer: 'ĐA DẠNG',
+        accept: ['da dang van hoa', 'thong nhat trong da dang'],
+        image: 'img/q6.svg',
+        alt: 'Nhiều loài hoa khác màu, khác dáng cùng mọc trên một luống đất',
+        explanation: '54 dân tộc Việt Nam có văn hóa đa dạng, phong phú, nhưng thống nhất trong một nền văn hóa Việt Nam chung.'
+      },
+      {
+        answer: 'NGÔN NGỮ',
+        accept: ['tieng noi', 'ngon ngu dan toc'],
+        image: 'img/q7.svg',
+        alt: 'Hai người nói với nhau bằng hai thứ chữ khác nhau',
+        explanation: 'Nhiều dân tộc có tiếng nói, chữ viết riêng; tiếng Việt là ngôn ngữ chung để các dân tộc giao tiếp với nhau.'
+      },
+      {
+        answer: 'TÔN TRỌNG',
+        accept: ['ton trong lan nhau'],
+        image: 'img/q8.svg',
+        alt: 'Hai người mặc trang phục khác nhau cúi chào nhau, phía trên có những trái tim',
+        explanation: 'Các dân tộc tôn trọng phong tục, tập quán, tín ngưỡng của nhau – điều kiện để đoàn kết bền vững.'
+      },
+      {
+        answer: 'TƯƠNG TRỢ',
+        accept: ['giup nhau', 'giup nhau cung phat trien', 'cung phat trien', 'tuong tro lan nhau'],
+        image: 'img/q9.svg',
+        alt: 'Người đứng bậc cao đưa tay kéo người ở bậc thấp cùng leo lên phía ngôi sao',
+        explanation: 'Trình độ phát triển giữa các dân tộc còn chênh lệch; chính sách của Đảng, Nhà nước là đoàn kết, tôn trọng, giúp nhau cùng phát triển.'
+      },
+      {
+        answer: 'CHỦ QUYỀN',
+        accept: ['chu quyen lanh tho', 'lanh tho', 'bien gioi'],
+        image: 'img/q10.svg',
+        alt: 'Bản đồ có lá cờ đỏ sao vàng, đường biên giới chấm đỏ với các cột mốc, sông và núi',
+        explanation: 'Đồng bào các dân tộc thiểu số sống nhiều ở vùng biên giới, có vị trí chiến lược trong giữ gìn chủ quyền, an ninh quốc gia.'
       }
     ],
 
