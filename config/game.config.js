@@ -10,15 +10,15 @@
 
     hintInitials: true, // cho phép MC bấm nút "Gợi ý" (phím G) để lật chữ cái đầu của mỗi từ
 
-    // Kịch bản 5 phút: 30s giới thiệu + 5 × 42s + 30s TOP 3 + 30s thông điệp = 300s
+    // Kịch bản ~6 phút 40: 30s giới thiệu + 5 × 62s + 30s TOP 3 + 30s thông điệp = 400s
     timeline: {
       introSec: 30,       // 0:00–0:30 giới thiệu & tham gia
       countdownSec: 3,    // đếm 3-2-1 trước câu 1 (nằm trong phần giới thiệu)
-      answerSec: 35,      // thời gian trả lời mỗi câu
-      revealSec: 7,       // hiển thị đáp án + chuyển câu  (35 + 7 = 42s/câu)
+      answerSec: 55,      // thời gian trả lời mỗi câu
+      revealSec: 7,       // hiển thị đáp án + chuyển câu  (55 + 7 = 62s/câu)
       autoAdvance: true,  // tự động sang câu tiếp sau revealSec
-      top3Sec: 30,        // 4:00–4:30
-      finaleSec: 30       // 4:30–5:00
+      top3Sec: 30,        // 5:40–6:10
+      finaleSec: 30       // 6:10–6:40
     },
 
     scoring: {
@@ -73,8 +73,8 @@
     finale: {
       line1: '54 DÂN TỘC – 1 VIỆT NAM',
       line2: 'MỖI DÂN TỘC MỘT BẢN SẮC – CÙNG TẠO NÊN SỨC MẠNH VIỆT NAM',
-      kicker: 'CHỦ NGHĨA XÃ HỘI KHOA HỌC',
-      title: 'VẤN ĐỀ DÂN TỘC TRONG CHỦ NGHĨA MÁC – LÊNIN VÀ THỰC TIỄN VIỆT NAM',
+      kicker: '', // dòng nhỏ phía trên tiêu đề cuối; để trống thì ẩn
+      title: 'DÂN TỘC TRONG THỜI KỲ QUÁ ĐỘ LÊN CHỦ NGHĨA XÃ HỘI',
       // Ảnh văn hóa (tùy chọn): đặt file vào public/img/culture/ rồi khai báo ở đây
       photos: ['img/culture/1.jpg', 'img/culture/2.jpg', 'img/culture/3.jpg', 'img/culture/4.jpg', 'img/culture/5.jpg', 'img/culture/6.jpg']
     }

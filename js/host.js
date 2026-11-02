@@ -233,7 +233,7 @@
     const f = $('#scr-finale'), F = S.finale || {};
     const stage = (...cls) => { f.className = 'screen finale on ' + cls.join(' '); };
     $('#finL1').textContent = F.line1 || ''; $('#finL2').textContent = F.line2 || '';
-    $('#finKicker').textContent = F.kicker || ''; $('#finT').textContent = F.title || '';
+    $('#finKicker').textContent = F.kicker || ''; $('#finKicker').hidden = !F.kicker; $('#finT').textContent = F.title || '';
     $('#finDrum').innerHTML = $('#finTDrum').innerHTML = '<img src="img/trong-dong.svg" alt="Trống đồng">'; DrumArt.ring54($('#finRing'));
     loadPhotos(F.photos || []);
     stage('s-dark');
