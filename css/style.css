@@ -144,6 +144,7 @@ body.host{height:100vh;overflow:hidden;display:flex;flex-direction:column}
 .pattern{display:flex;gap:1.6rem;flex-wrap:wrap;justify-content:center}
 .pattern .w{display:flex;gap:.4rem}
 .pattern .l{width:3.6rem;height:4.2rem;border-radius:.6rem;display:grid;place-items:center;font-size:2.4rem;font-weight:900;background:linear-gradient(180deg,#2a2a9a,#151563);border:2px solid rgba(160,170,255,.6);box-shadow:inset 0 -.3rem 0 rgba(0,0,0,.35);transform-style:preserve-3d}
+.pattern .l.given{color:#ffe08a;border-color:#f5c542;animation:flip .6s both}
 .pattern .l.on{background:linear-gradient(180deg,#fff3c0,#f5c542);color:#2a1400;border-color:#fff;animation:flip .6s both}
 @keyframes flip{from{transform:perspective(400px) rotateX(90deg)}to{transform:none}}
 .explain{font-size:1.25rem;line-height:1.5;text-align:center;max-width:44rem;color:#fff;font-weight:600;text-wrap:pretty;min-height:0}

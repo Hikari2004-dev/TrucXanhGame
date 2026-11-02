@@ -13,6 +13,7 @@
 
   // phase: welcome → countdown → question (⇄ timeup) → reveal → … → finale
   let phase = 'welcome', qi = 0, wrong = 0, results = Q.map(() => null);
+  let hinted = false;
   let endsAt = 0, pausedLeft = null, cdEndsAt = 0, lastSec = -1, lastCd = -1, seqTimers = [];
 
   const timeLeft = () => (pausedLeft != null ? pausedLeft : Math.max(0, endsAt - Date.now()));
@@ -58,6 +59,7 @@
     const img = $('#qImg'); img.src = q.image; img.alt = q.alt || '';
     const f = $('#frame'); f.classList.remove('enter'); void f.offsetWidth; f.classList.add('enter');
     buildPattern($('#pattern'), Core.answerPattern(q.answer));
+    hinted = false;
     $('#explain').textContent = '';
     $('#wrongCount').textContent = '0';
     setVerdict('', '');
@@ -79,6 +81,13 @@
     const f = $('#frame'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
     setVerdict('CHƯA ĐÚNG', 'bad');
     clearTimeout(markWrong.h); markWrong.h = setTimeout(() => { if (phase === 'question') setVerdict('', ''); }, 1400);
+  }
+  function showHint() {
+    if (!cfg.hintInitials || hinted || (phase !== 'question' && phase !== 'timeup')) return;
+    hinted = true;
+    showInitials($('#pattern'), Core.answerInitials(Q[qi].answer));
+    SFX.reveal();
+    renderControls();
   }
   function revealAnswer() {
     if (phase !== 'question' && phase !== 'timeup') return;
@@ -118,6 +127,14 @@
     box.innerHTML = '';
     pattern.forEach((len) => { const w = el('div', 'w'); for (let i = 0; i < len; i++) w.appendChild(el('span', 'l')); box.appendChild(w); });
   }
+  // gợi ý: lật sẵn chữ cái đầu của mỗi từ
+  function showInitials(box, initials) {
+    [...box.children].forEach((w, wi) => {
+      const l = w.firstElementChild;
+      if (!l || !initials[wi] || l.classList.contains('given')) return;
+      l.textContent = initials[wi]; l.style.animationDelay = wi * 0.15 + 's'; l.classList.add('given');
+    });
+  }
   function fillPattern(box, answer) {
     const words = answer.trim().split(/\s+/);
     [...box.children].forEach((w, wi) => {
@@ -139,11 +156,12 @@
 
   function renderControls() {
     const last = qi + 1 >= Q.length;
+    const hintBtn = cfg.hintInitials && !hinted ? [['Gợi ý chữ cái đầu', 'ghost', showHint]] : [];
     const B = {
       welcome: [['BẮT ĐẦU CÂU 1 ▶', 'primary', () => startQuestion(0)]],
       countdown: [['Mở câu ngay ▶', 'primary', openQuestion]],
-      question: [['ĐÚNG ✓', 'primary', markCorrect], ['SAI ✗', 'danger', markWrong], [pausedLeft == null ? 'Dừng giờ' : 'Chạy tiếp giờ', 'ghost', togglePause], ['Lật đáp án', 'ghost', revealAnswer]],
-      timeup: [['Lật đáp án', 'primary', revealAnswer], ['ĐÚNG ✓', 'ghost', markCorrect], ['Thêm 15 giây', 'ghost', addTime]],
+      question: [['ĐÚNG ✓', 'primary', markCorrect], ['SAI ✗', 'danger', markWrong], [pausedLeft == null ? 'Dừng giờ' : 'Chạy tiếp giờ', 'ghost', togglePause]].concat(hintBtn, [['Lật đáp án', 'ghost', revealAnswer]]),
+      timeup: [['Lật đáp án', 'primary', revealAnswer], ['ĐÚNG ✓', 'ghost', markCorrect]].concat(hintBtn, [['Thêm 15 giây', 'ghost', addTime]]),
       reveal: [[last ? 'GIẢI MÃ THÔNG ĐIỆP CUỐI CÙNG ▶' : `Sang câu ${qi + 2} ▶`, 'primary', next], ['Chơi lại từ đầu', 'ghost', restart]],
       finale: [['Chơi lại từ đầu', 'ghost', restart]]
     }[phase];
@@ -228,6 +246,7 @@
       else if (k === 's' || k === 'x') markWrong();
       else if (k === 'l') revealAnswer();
       else if (k === 'p') togglePause();
+      else if (k === 'g') showHint();
       else if ([' ', 'arrowright', 'pagedown', 'enter'].includes(k)) {
         const b = $('#ctlMain .btn.primary');
         if (b) { e.preventDefault(); b.click(); }

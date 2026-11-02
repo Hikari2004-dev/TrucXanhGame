@@ -27,6 +27,8 @@
   }
   // số ký tự mỗi từ, ví dụ "ĐOÀN KẾT" -> [4, 3]
   const answerPattern = (answer) => normalizeAnswer(answer).split(' ').filter(Boolean).map((w) => w.length);
+  // chữ cái đầu mỗi từ (giữ dấu) để gợi ý, ví dụ "ĐOÀN KẾT" -> ['Đ', 'K']
+  const answerInitials = (answer) => answer.normalize('NFC').trim().split(/\s+/).map((w) => Array.from(w)[0] || '');
 
   function sanitizeName(raw, maxLen) {
     if (typeof raw !== 'string') return '';
@@ -114,6 +116,7 @@
       if (i < 0 || i >= this.questions.length) return fail('BAD_QUESTION');
       if (!['countdown', 'reveal'].includes(this.phase)) return fail('BAD_PHASE');
       this.qIndex = i;
+      this.hinted = false;
       this.setPhase('question');
       this.openedAt = this.now();
       this.closesAt = this.openedAt + this.t.answerSec * 1000;
@@ -123,6 +126,11 @@
       if (this.phase !== 'question') return fail('BAD_PHASE');
       this.setPhase('reveal');
       this.revealEndsAt = this.now() + this.t.revealSec * 1000;
+      return ok();
+    }
+    showHint() {
+      if (this.phase !== 'question' || !this.config.hintInitials) return fail('BAD_PHASE');
+      this.hinted = true;
       return ok();
     }
     hasNext() { return this.qIndex + 1 < this.questions.length; }
@@ -223,6 +231,7 @@
           if (g.phase === 'reveal') { this.advance(); return ok(); }
           r = fail('BAD_PHASE');
           break;
+        case 'hint': r = g.showHint(); break;
         case 'end': r = g.endEarly(); if (r.ok) this.clear(); break;
         case 'top3': r = g.toTop3(); break;
         case 'finale': r = g.toFinale(); break;
@@ -259,9 +268,9 @@
         code: this.code, phase: g.phase, qIndex: g.qIndex, total: g.questions.length,
         serverNow: g.now(), openedAt: g.openedAt, closesAt: g.closesAt,
         countdownEndsAt: g.countdownEndsAt, revealEndsAt: g.revealEndsAt,
-        autoAdvance: !!g.t.autoAdvance, playerCount: g.players.size,
+        autoAdvance: !!g.t.autoAdvance, hintEnabled: !!g.config.hintInitials, playerCount: g.players.size,
         scoring: { base: g.config.scoring.base, maxBonus: g.config.scoring.maxBonus, wrongPenalty: g.config.scoring.wrongPenalty, maxAttempts: g.config.scoring.maxAttempts },
-        question: inQ && q ? { index: g.qIndex, number: g.qIndex + 1, image: q.image, alt: q.alt || '', pattern: answerPattern(q.answer) } : null,
+        question: inQ && q ? { index: g.qIndex, number: g.qIndex + 1, image: q.image, alt: q.alt || '', pattern: answerPattern(q.answer), initials: g.hinted ? answerInitials(q.answer) : null } : null,
         reveal: null
       };
       // đáp án chỉ được gửi đi SAU khi câu hỏi đã đóng
@@ -299,5 +308,5 @@
     }
   }
 
-  return { Game, Room, normalizeAnswer, compactAnswer, isCorrectAnswer, answerPattern, sanitizeName, computePoints, rankPlayers };
+  return { Game, Room, normalizeAnswer, compactAnswer, isCorrectAnswer, answerPattern, answerInitials, sanitizeName, computePoints, rankPlayers };
 });

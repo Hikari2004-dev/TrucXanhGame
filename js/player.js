@@ -83,6 +83,14 @@
     box.innerHTML = '';
     pattern.forEach((len) => { const w = el('div', 'w'); for (let i = 0; i < len; i++) w.appendChild(el('span', 'l')); box.appendChild(w); });
   }
+  // gợi ý: lật sẵn chữ cái đầu của mỗi từ
+  function showInitials(box, initials) {
+    [...box.children].forEach((w, wi) => {
+      const l = w.firstElementChild;
+      if (!l || !initials[wi] || l.classList.contains('given')) return;
+      l.textContent = initials[wi]; l.style.animationDelay = wi * 0.15 + 's'; l.classList.add('given');
+    });
+  }
   function fillPattern(box, answer) {
     const words = answer.trim().split(/\s+/);
     [...box.children].forEach((w, wi) => {
@@ -97,7 +105,10 @@
     switch (S.phase) {
       case 'lobby': show('wait'); $('#waitCount').textContent = S.playerCount; break;
       case 'countdown': show('count'); break;
-      case 'question': case 'reveal': show('play'); if (changed) renderPlay(prevS); break;
+      case 'question': case 'reveal':
+        show('play'); if (changed) renderPlay(prevS);
+        if (S.phase === 'question' && S.question && S.question.initials) showInitials($('#ppPattern'), S.question.initials);
+        break;
       case 'final': case 'top3': show('final'); if (changed && S.phase === 'top3') SFX.fanfare(); break;
       case 'finale':
         show('finale');

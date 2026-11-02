@@ -95,6 +95,7 @@
     renderControls(changed);
     if (S.phase === 'lobby') renderLobby();
     if (S.phase === 'question' || S.phase === 'reveal') renderQuestion(changed);
+    if (S.phase === 'question' && S.question && S.question.initials) showInitials($('#pattern'), S.question.initials);
     renderBoard($('#liveBoard'), S.leaderboard.slice(0, 8), 'mini');
     $('#liveEmpty').hidden = S.leaderboard.some((r) => r.score > 0);
     if (S.phase === 'final') renderFinal();
@@ -129,6 +130,14 @@
   function buildPattern(box, pattern) {
     box.innerHTML = '';
     pattern.forEach((len) => { const w = el('div', 'w'); for (let i = 0; i < len; i++) w.appendChild(el('span', 'l')); box.appendChild(w); });
+  }
+  // gợi ý: lật sẵn chữ cái đầu của mỗi từ
+  function showInitials(box, initials) {
+    [...box.children].forEach((w, wi) => {
+      const l = w.firstElementChild;
+      if (!l || !initials[wi] || l.classList.contains('given')) return;
+      l.textContent = initials[wi]; l.style.animationDelay = wi * 0.15 + 's'; l.classList.add('given');
+    });
   }
   function fillPattern(box, answer) {
     const words = answer.trim().split(/\s+/);
@@ -307,14 +316,16 @@
   function renderControls(force) {
     const ph = S ? S.phase : 'none';
     const last = S && S.qIndex + 1 >= S.total;
-    const key = ph + ':' + (S ? S.qIndex : '') + ':' + !!auth;
+    const hinted = !!(S && S.question && S.question.initials);
+    const hintOn = !!(S && S.hintEnabled);
+    const key = ph + ':' + (S ? S.qIndex : '') + ':' + !!auth + ':' + hinted;
     if (!force && key === ctlKey) return;
     ctlKey = key;
     const B = {
       none: [],
       lobby: [['start', 'BẮT ĐẦU TRÒ CHƠI ▶', 'primary']],
       countdown: [['next', 'Mở câu 1 ngay ▶', 'primary']],
-      question: [['next', 'Đóng câu & công bố đáp án', 'primary'], ['end', 'Kết thúc sớm', 'danger']],
+      question: [['next', 'Đóng câu & công bố đáp án', 'primary']].concat(hintOn && !hinted ? [['hint', 'Gợi ý chữ cái đầu (G)', 'ghost']] : [], [['end', 'Kết thúc sớm', 'danger']]),
       reveal: last ? [['next', 'Xem bảng xếp hạng chung cuộc ▶', 'primary']] : [['next', `Sang câu ${S ? S.qIndex + 2 : ''} ▶`, 'primary'], ['end', 'Kết thúc sớm', 'danger']],
       final: [['top3', 'CÔNG BỐ TOP 3 ▶', 'primary'], ['finale', 'Bỏ qua, mở thông điệp cuối', 'ghost']],
       top3: [['finale', 'GIẢI MÃ THÔNG ĐIỆP CUỐI CÙNG', 'primary']],
@@ -338,6 +349,7 @@
       if (k === 'h') $('#controls').classList.toggle('hide');
       else if (k === 'f') toggleFull();
       else if (k === 'm') { SFX.toggle(); sndLabel(); }
+      else if (k === 'g' && S && S.phase === 'question' && S.hintEnabled) act('hint');
       else if ([' ', 'arrowright', 'pagedown', 'enter'].includes(k)) {
         const b = $('#ctlMain .btn.primary');
         if (b) { e.preventDefault(); b.click(); } else if (!S && k !== ' ') createRoom();
